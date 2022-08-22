@@ -1,12 +1,15 @@
 import './App.css';
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import Header from '../Header/Header';
+import Promo from '../Promo/Promo';
 
 function App() {
   return (
     <div className="App">
       <Switch>
         <Route exact path="/">
-            
+            <Header />
+            <Promo />
         </Route>
         <Route path="/movies">
 
