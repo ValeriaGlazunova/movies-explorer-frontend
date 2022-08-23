@@ -2,6 +2,7 @@ import './App.css';
 import { Switch, Route } from "react-router-dom";
 import Header from '../Header/Header';
 import Promo from '../Promo/Promo';
+import AboutProject from '../AboutProject/AboutProject';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route exact path="/">
             <Header />
             <Promo />
+            <AboutProject />
         </Route>
         <Route path="/movies">
 
