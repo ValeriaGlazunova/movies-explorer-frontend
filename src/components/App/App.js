@@ -7,6 +7,7 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
+import SearchForm from '../SearchForm/SearchForm';
 
 function App() {
   return (
@@ -22,10 +23,12 @@ function App() {
             <Footer />
         </Route>
         <Route path="/movies">
-
+          <Header />
+          <SearchForm />
+          <Footer />
         </Route>
         <Route path="/saved-movies">
-
+          <Header />
         </Route>
         <Route path="profile">
 
