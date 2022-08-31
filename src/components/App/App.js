@@ -10,6 +10,7 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavesMovies';
+import Profile from '../Profile/Profile';
 
 function App() {
   return (
@@ -35,13 +36,14 @@ function App() {
           <SavedMovies />
           <Footer />
         </Route>
-        <Route path="profile">
+        <Route path="/profile">
+          <Header />
+          <Profile />
+        </Route>
+        <Route path="/signin">
 
         </Route>
-        <Route path="signin">
-
-        </Route>
-        <Route path="signup">
+        <Route path="/signup">
           
         </Route>
       </Switch>
