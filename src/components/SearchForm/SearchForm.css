@@ -7,7 +7,7 @@
 
 .search-form__container {
   margin: 0 auto;
-  max-width: 1140px;
+  max-width: 1121px;
   max-height: 72px;
   background-color: #f9f9f9;
   border-radius: 9px;
@@ -16,7 +16,7 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-  padding: 19px 30px 19px 19px;
+  padding: 19px 0 19px 19px;
 }
 
 .search-form__icon {

@@ -8,6 +8,8 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
+import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavesMovies';
 
 function App() {
   return (
@@ -25,10 +27,13 @@ function App() {
         <Route path="/movies">
           <Header />
           <SearchForm />
+          <Movies />
           <Footer />
         </Route>
         <Route path="/saved-movies">
           <Header />
+          <SavedMovies />
+          <Footer />
         </Route>
         <Route path="profile">
 

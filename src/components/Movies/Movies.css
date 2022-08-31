@@ -1,0 +1,32 @@
+.movies {
+    max-width: 1280px;
+    min-width: 365px;
+    margin: 0 auto;
+}
+
+.movies__container {
+    max-width: 1140px;
+    display: grid;
+    grid-template-columns: repeat(3, 364px);
+    grid-template-rows: max-content;
+    column-gap: 24px;
+    row-gap: 30px;
+    margin: 0 auto 80px;
+    justify-content: center;
+    padding-top: 80px;
+    border-top: 1px solid rgba(232, 232, 232, 1);
+}
+
+.movies__more-btn {
+    background-color:inherit;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    padding: 11px 60px 9px;
+    margin: 0 auto 80px;
+    width: 320px;
+    height: 36px;
+    border-radius: 6px;
+    border-color: rgba(0, 0, 0, 0.2);
+}
