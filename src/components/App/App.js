@@ -11,6 +11,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavesMovies';
 import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
 
         </Route>
         <Route path="/signup">
-          
+          <Register />
         </Route>
       </Switch>
     </div>
