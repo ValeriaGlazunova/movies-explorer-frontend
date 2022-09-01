@@ -12,6 +12,8 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavesMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   return (
@@ -42,10 +44,13 @@ function App() {
           <Profile />
         </Route>
         <Route path="/signin">
-
+          <Login />
         </Route>
         <Route path="/signup">
           <Register />
+        </Route>
+        <Route path="/404">
+          <NotFound />
         </Route>
       </Switch>
     </div>
