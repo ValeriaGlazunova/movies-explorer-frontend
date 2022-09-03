@@ -13,6 +13,18 @@
     padding: 18px 0 18px 70px;
 }
 
+@media screen and (max-width: 770px) {
+    .header__logo {
+        padding: 18px 0 18px 30px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .header__logo {
+        padding: 18px 0 18px 30px;
+    }
+}
+
 .header__nav-box {
     max-width: 183px;
     display: flex;
@@ -21,6 +33,14 @@
     align-items: center;
     padding-right: 71px;
 }
+
+@media screen and (max-width: 900px) {
+    .header__nav-box {
+        padding-right: 30px;
+}
+    }
+    
+    
 
 .header__reg-link {
     margin: 0;
