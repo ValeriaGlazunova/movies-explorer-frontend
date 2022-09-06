@@ -4,6 +4,12 @@
     background-color: #FAFAFA;
 }
 
+@media screen and (max-width: 1140px) {
+    .footer {
+        background-color: inherit;
+    }
+}
+
 .footer__title {
     margin: 0 auto 20px;
     padding: 79px 0 20px;
@@ -16,6 +22,22 @@
     max-width: 1140px;
 }
 
+@media screen and (max-width: 1140px) {
+    .footer__title {
+        max-width: 708px;
+    }
+}
+
+@media screen and (max-width: 669px) {
+    .footer__title {
+        max-width: 300px;
+        font-size: 12px;
+        line-height: 15px;
+        padding: 79px 0 21px;
+        margin: 0 auto 30px
+    }
+}
+
 .footer__bottom-box {
     display: flex;
     flex-direction: row;
@@ -24,11 +46,34 @@
     margin: 0 auto;
 }
 
+@media screen and (max-width: 1140px) {
+    .footer__bottom-box {
+        max-width: 708px;
+    }
+}
+
+@media screen and (max-width: 669px) {
+    .footer__bottom-box {
+        max-width: 300px;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+    }
+}
+
 .footer__date {
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
     margin: 0;
+}
+
+@media screen and (max-width: 669px) {
+    .footer__date {
+        font-size: 12px;
+        line-height: 15px;
+        margin: 0 auto 10px;
+        color: #A0A0A0;
+    }
 }
 
 .footer__links {
@@ -40,6 +85,14 @@
     list-style: none;
 }
 
+@media screen and (max-width: 669px) {
+    .footer__links{
+        flex-direction: column;
+        justify-content: flex-start;
+        margin: 0 auto 30px;
+    }
+}
+
 .footer__link {
     text-decoration: none;
     color: #000000;
@@ -48,8 +101,25 @@
     line-height: 16px;
     text-align: right;
     margin-left: 20px;
+    cursor: pointer;
+    transition: opacity 1s;
+}
+
+@media screen and (max-width: 669px) {
+    .footer__link {
+        font-size: 12px;
+        line-height: 15px;
+        margin: 0 0 12px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 669px) {
+    .footer__link:last-child {
+        margin: 0;
+    }
 }
 
 .footer__link:hover {
-    cursor: pointer;
+    opacity: .8;
 }
