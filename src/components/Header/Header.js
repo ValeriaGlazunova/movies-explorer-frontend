@@ -2,6 +2,7 @@ import React from "react";
 import "./Header.css";
 import logo from "../../images/logo.svg";
 import { Switch, Route, Link } from "react-router-dom";
+import Navigation from "../Navigation/Navigation";
 
 export default function Header() {
   return (
@@ -19,25 +20,13 @@ export default function Header() {
             </nav>
           </Route>
           <Route path="/movies">
-            <nav className="header__movies-nav-box">
-                <Link to='/movies' className="header__movies-link header__movies-link_active">Фильмы</Link>
-                <Link to='/saved-movies' className="header__movies-link">Сохранённые фильмы</Link>
-            </nav>
-            <Link to='/' className="header__account-link">Аккаунт</Link>
+            <Navigation />
           </Route>
           <Route path="/saved-movies">
-            <nav className="header__movies-nav-box">
-                <Link to='/movies' className="header__movies-link">Фильмы</Link>
-                <Link to='/saved-movies' className="header__movies-link header__movies-link_active">Сохранённые фильмы</Link>
-            </nav>
-            <Link to='/' className="header__account-link">Аккаунт</Link>
+            <Navigation />
           </Route>
           <Route path="/profile">
-            <nav className="header__movies-nav-box">
-                <Link to='/movies' className="header__movies-link header__movies-link_active">Фильмы</Link>
-                <Link to='/saved-movies' className="header__movies-link">Сохранённые фильмы</Link>
-            </nav>
-            <Link to='/' className="header__account-link">Аккаунт</Link>
+            <Navigation />
           </Route>
       </Switch>
     </header>
