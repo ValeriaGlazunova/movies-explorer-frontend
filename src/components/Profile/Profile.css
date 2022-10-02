@@ -20,6 +20,12 @@
     margin: 0 auto;
 }
 
+@media (max-width: 415px) {
+    .profile__form {
+        width: 260px;
+    }
+}
+
 .profile__name-container {
     display: flex;
     flex-direction: row;
@@ -76,6 +82,15 @@
     transition: opacity 1s;
 }
 
+@media (max-width: 415px) {
+    .profile__submit-btn {
+        width: 260px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
+
 .profile__submit-btn:hover {
     opacity: .8;
 }
@@ -92,6 +107,15 @@
     margin: 0 auto 70px;
     transition: opacity 1s;
     color: #EE3465;
+}
+
+@media (max-width: 415px) {
+    .profile__logout-btn {
+        width: 260px;
+        font-size: 12px;
+        line-height: 15px;
+        margin: 0 auto 40px;
+    }
 }
 
 .profile__logout-btn:hover {

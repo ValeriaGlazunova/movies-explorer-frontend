@@ -16,3 +16,22 @@
     padding-top: 80px;
     border-top: 1px solid rgba(232, 232, 232, 1);
 }
+
+@media (max-width: 1142px) {
+    .saved-movies__container {
+        max-width: 708px;
+        grid-template-columns: repeat(2, 339px);
+        column-gap: 30px;
+        row-gap: 36px;
+    }
+}
+
+@media (max-width: 710px) {
+    .saved-movies__container {
+        max-width: 300px;
+        grid-template-columns: repeat(1, 300px);
+        column-gap: 0px;
+        row-gap: 16px;
+        padding-top: 50px;
+    }
+}

@@ -17,6 +17,25 @@
     border-top: 1px solid rgba(232, 232, 232, 1);
 }
 
+@media (max-width: 1142px) {
+    .movies__container {
+        max-width: 708px;
+        grid-template-columns: repeat(2, 339px);
+        column-gap: 30px;
+        row-gap: 36px;
+    }
+}
+
+@media (max-width: 710px) {
+    .movies__container {
+        max-width: 300px;
+        grid-template-columns: repeat(1, 300px);
+        column-gap: 0px;
+        row-gap: 16px;
+        padding-top: 50px;
+    }
+}
+
 .movies__more-btn {
     background-color:inherit;
     font-weight: 500;
@@ -29,4 +48,11 @@
     height: 36px;
     border-radius: 6px;
     border-color: rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 710px) {
+    .movies__more-btn {
+        width: 240px;
+        padding: 11px 20px 9px;
+    }
 }
