@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
 
-
 export default function Register() {
   return (
     <section className="register">
@@ -17,16 +16,15 @@ export default function Register() {
           </div>
           <div className="register__input-box">
             <p className="register__input-head">E-mail</p>
-            <input className="register__input"  />
+            <input className="register__input" />
             <span className="register__input-error"></span>
           </div>
           <div className="register__input-box">
             <p className="register__input-head">Пароль</p>
-            <input
-              className="register__input"
-              type="password"
-            />
-            <span className="register__input-error">Что-то пошло не так...</span>
+            <input className="register__input" type="password" />
+            <span className="register__input-error">
+              Что-то пошло не так...
+            </span>
           </div>
         </div>
         <button type="submit" className="register__submit-btn">

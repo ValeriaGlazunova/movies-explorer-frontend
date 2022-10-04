@@ -16,6 +16,7 @@
 @media screen and (max-width: 768px) {
     .tech-info {
         max-width: 320px;
+        background-color: #FFFFFF;
     }  
 }
 

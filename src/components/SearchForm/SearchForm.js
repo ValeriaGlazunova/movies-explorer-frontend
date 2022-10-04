@@ -9,14 +9,14 @@ export default function SearchForm() {
         <img className="search-form__icon" alt="icon" src={icon} />
         <form className="search-form__line">
           <div className="search-form__input-container">
-          <input className="search-form__input" placeholder="Фильм" />
-          <button className="search-form__button" type="button"></button>
+            <input className="search-form__input" placeholder="Фильм" required/>
+            <button className="search-form__button" type="button"></button>
           </div>
-          <label className="search-form__checkbox" htmlFor="checkbox">
+          <label className="search-form__checkbox">
             <input
               className="search-form__checkbox__input"
               type="checkbox"
-              name="checkbox"
+              value="short"
             />
             <span className="search-form__checkbox__pseudo-el"></span>
             Короткометражки

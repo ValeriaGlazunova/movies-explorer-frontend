@@ -13,10 +13,7 @@ export default function Profile() {
           </div>
           <div className="profile__email-container">
             <p className="profie__input-name">E-mail</p>
-            <input
-              className="profile__input"
-              placeholder="Valerila@mail.ru"
-            />
+            <input className="profile__input" placeholder="Valerila@mail.ru" />
           </div>
         </div>
       </form>

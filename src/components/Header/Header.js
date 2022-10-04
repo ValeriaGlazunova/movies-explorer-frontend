@@ -7,27 +7,30 @@ import Navigation from "../Navigation/Navigation";
 export default function Header() {
   return (
     <header className="header">
-      <img className="header__logo" alt="logo" src={logo} />
+      <Link to="/">
+        {" "}
+        <img className="header__logo" alt="logo" src={logo} />
+      </Link>
       <Switch>
-          <Route exact path="/">
-            <nav className="header__nav-box">
+        <Route exact path="/">
+          <nav className="header__nav-box">
             <Link to="/signup" className="header__reg-link">
               Регистрация
             </Link>
             <Link to="/movies" className="header__login-link">
               Войти
             </Link>
-            </nav>
-          </Route>
-          <Route path="/movies">
-            <Navigation />
-          </Route>
-          <Route path="/saved-movies">
-            <Navigation />
-          </Route>
-          <Route path="/profile">
-            <Navigation />
-          </Route>
+          </nav>
+        </Route>
+        <Route path="/movies">
+          <Navigation />
+        </Route>
+        <Route path="/saved-movies">
+          <Navigation />
+        </Route>
+        <Route path="/profile">
+          <Navigation />
+        </Route>
       </Switch>
     </header>
   );

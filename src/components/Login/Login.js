@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 
-
 export default function Register() {
   return (
     <section className="login">
@@ -12,15 +11,12 @@ export default function Register() {
         <div className="login__input-container">
           <div className="login__input-box">
             <p className="login__input-head">E-mail</p>
-            <input className="login__input"  />
+            <input className="login__input" />
             <span className="login__input-error"></span>
           </div>
           <div className="login__input-box">
             <p className="login__input-head">Пароль</p>
-            <input
-              className="login__input"
-              type="password"
-            />
+            <input className="login__input" type="password" />
             <span className="login__input-error"></span>
           </div>
         </div>
