@@ -1,5 +1,6 @@
+import React from "react";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -10,9 +11,14 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function App() {
+const [currentUser, setCurrentUser] = React.useState({});
+const history = useHistory();
+
   return (
+    <CurrentUserContext.Provider value={currentUser}>
     <div className="App">
       <Switch>
         <Route exact path="/">
@@ -47,6 +53,7 @@ function App() {
         </Route>
       </Switch>
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 
