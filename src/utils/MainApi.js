@@ -14,7 +14,7 @@ class Api {
     }
 
     _fetch(path, body, method = 'GET') {
-        return fetch(this.url + path, {
+        return fetch(this._mainUrl + path, {
             method,
             headers: {
                 'Content-Type': 'application/json',
