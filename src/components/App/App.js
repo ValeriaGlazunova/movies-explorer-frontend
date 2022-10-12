@@ -58,7 +58,6 @@ function handleLogin(data) {
         </Route>
         <Route path="/movies">
           <Header />
-          <SearchForm />
           <Movies />
           <Footer />
         </Route>

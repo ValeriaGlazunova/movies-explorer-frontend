@@ -3,7 +3,7 @@ import "./SearchForm.css";
 import icon from "../../images/icon.svg";
 import { useLocation } from "react-router-dom";
 
-export default function SearchForm(props) {
+export default function SearchForm({ handleSearch }) {
   const [input, setInput] = React.useState('');
   const [check, setCheck] = React.useState(false);
   const [placeholder, setPlaceholder] = React.useState("Фильм");
@@ -13,7 +13,7 @@ export default function SearchForm(props) {
   const handleCheck = () => {
     setCheck(!check);
     localStorage.setItem("check", !check);
-    props.handleSearch(input, !check);
+    handleSearch(input, !check);
   };
 
   const handleInput = (e) => {
@@ -33,7 +33,7 @@ export default function SearchForm(props) {
     setPlaceholder("Фильм");
     localStorage.setItem("query", input);
 
-    props.handleSearch(input, check);
+    handleSearch(input, check);
   };
 
   React.useEffect(() => {
@@ -50,7 +50,7 @@ export default function SearchForm(props) {
       }
 
       if (inputValue || checkValue === true) {
-        props.handleSearch(inputValue, checkValue);
+        handleSearch(inputValue, checkValue);
       }
     }
   }, []);
