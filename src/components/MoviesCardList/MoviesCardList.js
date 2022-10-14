@@ -1,10 +1,10 @@
 import React from "react";
-import './MoviesCardList.css';
+import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 export default function MoviesCardList({ movies, errorMessage }) {
-    const [maxMovies, setMaxMovies] = React.useState(0);
+  const [maxMovies, setMaxMovies] = React.useState(0);
   const [step, setStep] = React.useState(0);
   const location = useLocation();
 
@@ -15,7 +15,7 @@ export default function MoviesCardList({ movies, errorMessage }) {
   const setCardsTemplate = () => {
     const width = window.innerWidth;
 
-    if (location.pathname === '/saved-movies') {
+    if (location.pathname === "/saved-movies") {
       setMaxMovies(movies.length);
     }
 
@@ -37,30 +37,38 @@ export default function MoviesCardList({ movies, errorMessage }) {
   React.useEffect(() => {
     setCardsTemplate();
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       setTimeout(() => {
         setCardsTemplate();
       }, 500);
     });
   }, []);
-    
 
-    return (
-        <section className="movies">
-            <div className="movies__container">
-            {movies.map((movie, index) => {
-              if (index < maxMovies) {
-                return (
-                  <MoviesCard
-                    key={movie.id || movie.movieId}
-                    movie={movie}
-                  />
-                );
-              }
-              return null;
-            })}
-            </div>
-            <button className="movies__more-btn" type="button" onClick={showMoreMovies}>Ещё</button>
-        </section>
-    )
+  return (
+    <section className="movies">
+      {errorMessage ? (
+        <p className="movies__error-message">{errorMessage}</p>
+      ) : (
+        <div className="movies__container">
+          {movies.map((movie, index) => {
+            if (index < maxMovies) {
+              return (
+                <MoviesCard key={movie.id || movie.movieId} movie={movie} />
+              );
+            }
+            return null;
+          })}
+        </div>
+      )}
+      {movies.length > maxMovies && location.pathname !== '/saved-movies' && (
+        <button
+        className="movies__more-btn"
+        type="button"
+        onClick={showMoreMovies}
+      >
+        Ещё
+      </button>
+      )}
+    </section>
+  );
 }

@@ -6,23 +6,41 @@ export default function Register({ onRegister }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [name, setName] = React.useState('');
+  const [messageError, setMessageError] = React.useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [isFormValid, setIsFormValid] = React.useState(false);
 
   function handleEmailPut(e) {
     setEmail(e.target.value);
+    setMessageError({email: e.target.validationMessage});
   }
 
   function handlePasswordPut(e) {
     setPassword(e.target.value);
+    setMessageError({password: e.target.validationMessage});
   }
 
   function handleNamePut(e) {
     setName(e.target.value);
+    setMessageError({name: e.target.validationMessage});
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     onRegister({password, email, name});
   }
+
+  React.useEffect(() => {
+    if (messageError.name || messageError.email || messageError.password) {
+      return setIsFormValid(false);
+    } else if (!name || !password || !email) {
+      return setIsFormValid(false);
+    }
+    setIsFormValid(true);
+  }, [messageError, password, email, name])
 
   return (
     <section className="register">
@@ -37,12 +55,13 @@ export default function Register({ onRegister }) {
             <input 
             value={name}
             name="name"
+            pattern="^[A-Za-zА-Яа-яЁё /s -]+$"
             className="register__input"
             type="text"
             required
             onChange={handleNamePut}
              />
-            <span className="register__input-error"></span>
+            {messageError.name && (<span className="register__input-error">{messageError.name}</span>)}
           </div>
           <div className="register__input-box">
             <p className="register__input-head">E-mail</p>
@@ -51,10 +70,11 @@ export default function Register({ onRegister }) {
             name="email"
             type="email"
             required
+            pattern='^[^ ]+@[^ ]+\.[a-z]{2,3}$'
             className="register__input"
             onChange={handleEmailPut}
              />
-            <span className="register__input-error"></span>
+            {messageError.email && (<span className="register__input-error">{messageError.email}</span>)}
           </div>
           <div className="register__input-box">
             <p className="register__input-head">Пароль</p>
@@ -65,12 +85,13 @@ export default function Register({ onRegister }) {
              type="password"
              onChange={handlePasswordPut} 
              />
-            <span className="register__input-error">
-              Что-то пошло не так...
-            </span>
+            {messageError.password && (<span className="register__input-error">{messageError.password}
+            </span>)}
           </div>
         </div>
-        <button type="submit" className="register__submit-btn">
+        <button type="submit" 
+        disabled={!isFormValid}
+        className="register__submit-btn">
           Зарегистрироваться
         </button>
       </form>

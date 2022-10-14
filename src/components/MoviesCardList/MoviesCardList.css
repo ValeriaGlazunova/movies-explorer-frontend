@@ -4,6 +4,15 @@
     margin: 0 auto;
 }
 
+.movies__error-message {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #211c1c;
+    text-align: center;
+    margin: 0 auto 50px;
+}
+
 .movies__container {
     max-width: 1140px;
     display: grid;

@@ -13,48 +13,100 @@ class Api {
         }
     }
 
-    _fetch(path, body, method = 'GET') {
-        return fetch(this._mainUrl + path, {
-            method,
+    getCurrentUser(token) {
+        return fetch(`${this._mainUrl}/users/me`, {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
+                'Authorization': `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+          })
+          .then(this._checkResponse);
+    }
+
+    updateUser(user, token) {
+        return fetch(`${this._mainUrl}/users/me`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(user)
         })
-            .then((res) => this._checkResponse(res));
+        .then(this._checkResponse);
     }
 
-    getCurrentUser() {
-        return this._fetch('/users/me');
+    getMovies(token) {
+        return fetch (`${this._mainUrl}/movies`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            })
+            .then(this._checkResponse)
     }
 
-    updateUser(user) {
-        return this._fetch('/users/me', user, 'PATCH');
+    saveMovie(movie, token) {
+        return fetch (`${this._mainUrl}/movies`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(movie),
+        })
+        .then(this._checkResponse);
     }
 
-    getMovies() {
-        return this._fetch('/movies');
-    }
-
-    saveMovie(movie) {
-        return this._fetch('/movies', movie, 'POST');
-    }
-
-    deleteMovie(id) {
-        return this._fetch(`/movies/${id}`, {}, 'DELETE');
+    deleteMovie(id, token) {
+        return fetch (`${this._mainUrl}/movies/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+        })
+        .then(this._checkResponse);
     }
 
     signUp(user) {
-        return this._fetch('/signup', user, 'POST');
+        return fetch (`${this._mainUrl}/signup`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify(user)
+        })
+        .then(this._checkResponse);
     }
 
     signIn(user) {
-        return this._fetch('/signin', user, 'POST');
+        return fetch (`${this._mainUrl}/signin`,
+        {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify(user),
+        })
+        .then(this._checkResponse);
     }
 
-    signOut() {
-        return this._fetch('/signout', {}, 'POST');
+    checkToken(token) {
+        return fetch(`${this._mainUrl}/users/me`, {
+            method: 'GET',
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${token}`,
+            },
+          })
+          .then(this._checkResponse);
     }
 }
 
-export const mainApi = new Api(mainUrl);
+const mainApi = new Api({
+    mainUrl: "https://glazunova.diploma.nomoredomains.xyz"
+});
+
+export default mainApi;

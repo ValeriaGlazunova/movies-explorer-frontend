@@ -1,9 +1,5 @@
 import React from "react";
 import './MoviesCard.css';
-import cardFrame from '../../images/pic__COLOR_pic.jpg';
-import { useLocation } from "react-router-dom";
-import mainApi from '../../utils/MainApi';
-
 export default function MoviesCard({ movie, btn }) {
 
     return (

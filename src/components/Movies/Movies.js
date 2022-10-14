@@ -4,31 +4,12 @@ import SearchForm from "../SearchForm/SearchForm";
 import './Movies.css';
 import { getFilms } from "../../utils/MoviesApi";
 import Preloader from '../../components/Preloader/Preloader';
+import { searchFilter } from "../../utils/FilteredArray";
 
 export default function Movies() {
     const [movies, setMovies] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
-
-    function searchFilter(array, query, short) {
-        if (!array) {
-          return [];
-        }
-      
-        let filtered = [...array];
-      
-        if (query) {
-          filtered = filtered.filter((element) => element.nameRU
-            .toLowerCase()
-            .includes(query.toLowerCase()));
-        }
-      
-        if (short) {
-          return filtered.filter((element) => element.duration <= 40);
-        }
-      
-        return filtered;
-      }
 
   const filter = (query, shorts) => {
     const storedMovies = JSON.parse(localStorage.getItem('movies'));
