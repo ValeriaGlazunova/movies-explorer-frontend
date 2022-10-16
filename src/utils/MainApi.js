@@ -1,8 +1,7 @@
-export const mainUrl = "https://glazunova.diploma.nomoredomains.xyz";
-
 class Api {
-    constructor(mainUrl) {
+    constructor({mainUrl, headers}) {
         this._mainUrl = mainUrl;
+        this._headers = headers;
     }
 
     _checkResponse(res) {
@@ -88,7 +87,7 @@ class Api {
             headers: {
                 "Content-Type": "application/json",
               },
-            body: JSON.stringify(user),
+            body: JSON.stringify({user}),
         })
         .then(this._checkResponse);
     }

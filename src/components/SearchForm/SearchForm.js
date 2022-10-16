@@ -31,14 +31,14 @@ export default function SearchForm({ handleSearch }) {
 
     setError(false);
     setPlaceholder("Фильм");
-    localStorage.setItem("query", input);
+    localStorage.setItem("text", input);
 
     handleSearch(input, check);
   };
 
   React.useEffect(() => {
     if (path === "/movies") {
-      const inputValue = localStorage.getItem("query");
+      const inputValue = localStorage.getItem("text");
       const checkValue = JSON.parse(localStorage.getItem("check"));
 
       if (inputValue) {

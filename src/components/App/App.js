@@ -17,30 +17,35 @@ import ProtectedRoute from "../../utils/ProtectedRoute";
 
 function App() {
 const [currentUser, setCurrentUser] = React.useState({});
+const [currentMovies, setCurrentMovies] = React.useState([]);
 const history = useHistory();
 const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-const token = localStorage.getItem('token')
 
+// проверка токена
+const checkToken = () => {
+  const token = localStorage.getItem('token')
+  if (!token) {
+    return false;
+  }
+  return mainApi.checkToken(token);
+};
 
-//проверка токена
-// React.useEffect(() => {
-//   if (token) {
-//     mainApi
-//     .checkToken(token)
-//     .then((res) => {
-//       if (res) {
-//         setIsLoggedIn(true)
-//       }
-//     })
-//     .catch((err) => {
-//       console.log(`ошибка передачи токена: ${err}`)
-//     })
-//   }
-// }, [token])
+React.useEffect(() => {
+  const res = checkToken();
+  if (res) {
+    setIsLoggedIn(true);
+    setCurrentUser(res);
+    // const movies = mainApi.getMovies(res.token);
+    // setCurrentMovies(movies);
+  } else {
+    setIsLoggedIn(false);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
+
 
 //регистрация
 function handleRegister(data) {
-  console.log('regdata', data)
   mainApi
   .signUp(data)
   .then((res) => {
@@ -60,7 +65,9 @@ function handleLogin(data) {
   .then((res) => {
     setIsLoggedIn(true);
     localStorage.setItem('token', res.token);
-    setCurrentUser(token);
+    setCurrentUser(data);
+    // const movies = mainApi.getMovies(res.token)
+    // setCurrentMovies(movies)
     history.push('/movies')
   })
   .catch((error) => {
@@ -68,19 +75,36 @@ function handleLogin(data) {
   })
 }
 
-//получение данных текущего профиля
-// React.useEffect(() => {
-//   if (token) {
-//     mainApi.getCurrentUser(token)
-//     .then((userData) => {
-//       setCurrentUser(userData);
-//     })
-//     .catch(err => console.log(err))
-//   }
-// }, [token])
+//разлогинимся
+function onSignOut() {
+  localStorage.removeItem('token');
+  setCurrentUser({});
+  setCurrentMovies([]);
+  setIsLoggedIn(false);
+  localStorage.removeItem('token');
+}
+
+//редактирование профиля
+function handleEditProfile(newData) {
+  mainApi.updateUser(newData)
+  .then((res) => {
+    setCurrentUser(res)
+  })
+}
+
+//сохранение фильма
+function handleSaveMovie() {
+
+};
+
+//удаление фильма
+function handleDeleteSavedMovie() {
+
+}
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
+    {
     <div className="App">
       <Switch>
         <Route exact path="/">
@@ -90,18 +114,20 @@ function handleLogin(data) {
         </Route>
         <Route path="/movies">
           <Header />
-          <Movies />
+          <Movies handleSaveMovie ={handleSaveMovie}
+                handleDeleteSavedMovie={handleDeleteSavedMovie} />
           <Footer />
         </Route>
         <Route path="/saved-movies" >
           <Header />
           <SearchForm />
-          <SavedMovies />
+          <SavedMovies handleSaveMovie ={handleSaveMovie}
+                handleDeleteSavedMovie={handleDeleteSavedMovie} />
           <Footer />
         </Route>
         <Route path="/profile">
           <Header />
-          <Profile />
+          <Profile onSignOut={onSignOut} onEditProfile={handleEditProfile} />
         </Route>
         <Route path="/signin">
           <Login onLogin={handleLogin} />
@@ -114,6 +140,7 @@ function handleLogin(data) {
         </Route>
       </Switch>
     </div>
+    }
     </CurrentUserContext.Provider>
   );
 }

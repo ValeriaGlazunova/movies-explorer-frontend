@@ -95,6 +95,10 @@
   border-radius: 9px;
 }
 
+.search-form__input:focus {
+  outline: none;
+}
+
 @media (max-width: 1142px) {
   .search-form__input {
     width: 384px;

@@ -3,7 +3,7 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
 
-export default function MoviesCardList({ movies, errorMessage }) {
+export default function MoviesCardList({ movies, errorMessage, handleSaveMovie, handleDeleteSavedMovie }) {
   const [maxMovies, setMaxMovies] = React.useState(0);
   const [step, setStep] = React.useState(0);
   const location = useLocation();
@@ -12,18 +12,15 @@ export default function MoviesCardList({ movies, errorMessage }) {
     setMaxMovies(maxMovies + step);
   };
 
-  const setCardsTemplate = () => {
+  const setCards = () => {
     const width = window.innerWidth;
 
     if (location.pathname === "/saved-movies") {
       setMaxMovies(movies.length);
     }
 
-    if (width >= 1280) {
+    if (width >= 1140) {
       setMaxMovies(12);
-      setStep(4);
-    } else if (width >= 1140) {
-      setMaxMovies(9);
       setStep(3);
     } else if (width >= 760) {
       setMaxMovies(8);
@@ -35,13 +32,10 @@ export default function MoviesCardList({ movies, errorMessage }) {
   };
 
   React.useEffect(() => {
-    setCardsTemplate();
-
-    window.addEventListener("resize", () => {
-      setTimeout(() => {
-        setCardsTemplate();
-      }, 500);
-    });
+    setCards();
+    window.addEventListener('resize', () => {
+      setCards();
+    })
   }, []);
 
   return (
@@ -53,7 +47,8 @@ export default function MoviesCardList({ movies, errorMessage }) {
           {movies.map((movie, index) => {
             if (index < maxMovies) {
               return (
-                <MoviesCard key={movie.id || movie.movieId} movie={movie} />
+                <MoviesCard key={movie.id} movie={movie} handleSaveMovie ={handleSaveMovie}
+                handleDeleteSavedMovie={handleDeleteSavedMovie} />
               );
             }
             return null;

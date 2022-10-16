@@ -1,18 +1,18 @@
-export function searchFilter(array, query, short) {
+export function searchFilter(array, text, short) {
   if (!array) {
     return [];
   }
 
   let filtered = [...array];
 
-  if (query) {
+  if (text) {
     filtered = filtered.filter((element) =>
-      element.nameRU.toLowerCase().includes(query.toLowerCase())
+      element.nameRU.toLowerCase().includes(text.toLowerCase())
     );
   }
 
   if (short) {
-    return filtered.filter((element) => element.duration <= 40);
+    return filtered.filter((element) => element.duration <= 60);
   }
 
   return filtered;

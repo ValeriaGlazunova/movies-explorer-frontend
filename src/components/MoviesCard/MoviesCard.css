@@ -44,7 +44,7 @@
     transition: opacity 2s;
 }
 
-.movie-card__fav-icon:active {
+.movie-card__fav-icon_type_active {
     background-image: url(../../images/save9.svg);
 }
 
