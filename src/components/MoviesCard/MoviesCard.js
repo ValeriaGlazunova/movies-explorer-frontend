@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 export default function MoviesCard({
   movie,
   handleSaveMovie,
-  handleDeleteSavedMovie,
 }) {
   const { nameRU, duration, image, trailerLink, id, _id } = movie;
   const [saved, setSaved] = React.useState(false);
@@ -47,7 +46,7 @@ export default function MoviesCard({
           <button
             type="button"
             className="movie-card__fav-icon movie-card__fav-icon_type_delete"
-            onClick={handleDeleteSavedMovie}
+            onClick={handleSaveMovie}
           ></button>
         )}
       </div>

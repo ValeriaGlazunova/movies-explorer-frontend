@@ -46,8 +46,7 @@ React.useEffect(() => {
 <SearchForm handleSearch={handleSearch} />
             {loader
         ? <Preloader />
-        : <MoviesCardList movies={savedMovies} errorMessage={errorMessage} handleSaveMovie ={handleSaveMovie}
-        handleDeleteSavedMovie={handleDeleteSavedMovie} />}
+        : <MoviesCardList movies={savedMovies} errorMessage={errorMessage} handleSaveMovie ={handleSaveMovie} />}
       </div>
     </section>
   );

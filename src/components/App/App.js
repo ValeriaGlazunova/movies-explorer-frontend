@@ -17,9 +17,11 @@ import ProtectedRoute from "../../utils/ProtectedRoute";
 
 function App() {
 const [currentUser, setCurrentUser] = React.useState({});
-const [currentMovies, setCurrentMovies] = React.useState([]);
 const history = useHistory();
 const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+const [savedMovieId, setSavedMovieId] = React.useState('');
+const token = localStorage.getItem('token');
+
 
 // проверка токена
 const checkToken = () => {
@@ -35,8 +37,6 @@ React.useEffect(() => {
   if (res) {
     setIsLoggedIn(true);
     setCurrentUser(res);
-    // const movies = mainApi.getMovies(res.token);
-    // setCurrentMovies(movies);
   } else {
     setIsLoggedIn(false);
   }
@@ -66,8 +66,6 @@ function handleLogin(data) {
     setIsLoggedIn(true);
     localStorage.setItem('token', res.token);
     setCurrentUser(data);
-    // const movies = mainApi.getMovies(res.token)
-    // setCurrentMovies(movies)
     history.push('/movies')
   })
   .catch((error) => {
@@ -79,9 +77,7 @@ function handleLogin(data) {
 function onSignOut() {
   localStorage.removeItem('token');
   setCurrentUser({});
-  setCurrentMovies([]);
   setIsLoggedIn(false);
-  localStorage.removeItem('token');
 }
 
 //редактирование профиля
@@ -93,13 +89,43 @@ function handleEditProfile(newData) {
 }
 
 //сохранение фильма
-function handleSaveMovie() {
+function handleSaveMovie(movie) {
+  const newSavedMovie = {
+    ...movie,
+      image: `https://api.nomoreparties.co${movie.image.url}`,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      movieId: movie.id,
+  }
+  delete newSavedMovie.id;
+    delete newSavedMovie.created_at;
+    delete newSavedMovie.updated_at;
+    mainApi.saveMovie(newSavedMovie, token)
+    .then((savedMovie) => {
+      setSavedMovieId(savedMovie._id)
+      let savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+      if (!savedMovies) {
+        savedMovies = [];
+      }
 
+      savedMovies.push(savedMovie);
+      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 };
 
 //удаление фильма
-function handleDeleteSavedMovie() {
-
+function handleDeleteSavedMovie(savedMovieId) {
+  mainApi.deleteMovie(savedMovieId, token)
+  .then(() => {
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    const newArr = savedMovies.filter((item) => item._id !== savedMovieId)
+    localStorage.setItem('savedMovies', JSON.stringify(newArr))
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
 
   return (
@@ -114,15 +140,13 @@ function handleDeleteSavedMovie() {
         </Route>
         <Route path="/movies">
           <Header />
-          <Movies handleSaveMovie ={handleSaveMovie}
-                handleDeleteSavedMovie={handleDeleteSavedMovie} />
+          <Movies handleSaveMovie ={handleSaveMovie} />
           <Footer />
         </Route>
         <Route path="/saved-movies" >
           <Header />
           <SearchForm />
-          <SavedMovies handleSaveMovie ={handleSaveMovie}
-                handleDeleteSavedMovie={handleDeleteSavedMovie} />
+          <SavedMovies handleSaveMovie={handleDeleteSavedMovie} />
           <Footer />
         </Route>
         <Route path="/profile">

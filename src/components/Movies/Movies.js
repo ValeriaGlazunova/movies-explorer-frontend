@@ -51,8 +51,7 @@ export default function Movies({handleSaveMovie, handleDeleteSavedMovie}) {
             <SearchForm handleSearch={handleSearch} />
             {loading
         ? <Preloader />
-        : <MoviesCardList movies={movies} errorMessage={errorMessage} handleSaveMovie ={handleSaveMovie}
-        handleDeleteSavedMovie={handleDeleteSavedMovie} />}
+        : <MoviesCardList movies={movies} errorMessage={errorMessage} handleSaveMovie ={handleSaveMovie} />}
         </div>
     )
 }

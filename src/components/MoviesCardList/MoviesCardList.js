@@ -3,7 +3,7 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
 
-export default function MoviesCardList({ movies, errorMessage, handleSaveMovie, handleDeleteSavedMovie }) {
+export default function MoviesCardList({ movies, errorMessage, handleSaveMovie }) {
   const [maxMovies, setMaxMovies] = React.useState(0);
   const [step, setStep] = React.useState(0);
   const location = useLocation();
@@ -47,8 +47,7 @@ export default function MoviesCardList({ movies, errorMessage, handleSaveMovie, 
           {movies.map((movie, index) => {
             if (index < maxMovies) {
               return (
-                <MoviesCard key={movie.id} movie={movie} handleSaveMovie ={handleSaveMovie}
-                handleDeleteSavedMovie={handleDeleteSavedMovie} />
+                <MoviesCard key={movie.id} movie={movie} handleSaveMovie ={handleSaveMovie} />
               );
             }
             return null;
