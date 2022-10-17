@@ -44,7 +44,7 @@ export default function Navigation() {
           </Link>
         </li>
         <li className="navigation__link navigation__acc-link">
-          <Link to="/" className="navigation__account-link">
+          <Link to="/profile" className="navigation__account-link">
             Аккаунт
           </Link>
         </li>

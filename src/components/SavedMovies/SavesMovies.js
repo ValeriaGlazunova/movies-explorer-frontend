@@ -7,7 +7,7 @@ import Preloader from "../Preloader/Preloader";
 import mainApi from "../../utils/MainApi";
 
 
-export default function SavedMovies({handleSaveMovie, handleDeleteSavedMovie}) {
+export default function SavedMovies({handleSaveMovie}) {
   const [loader, setLoader] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const savedArray = JSON.parse(localStorage.getItem('savedMovies') || []);

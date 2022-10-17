@@ -6,7 +6,7 @@ import { getFilms } from "../../utils/MoviesApi";
 import Preloader from '../../components/Preloader/Preloader';
 import { searchFilter } from "../../utils/FilteredArray";
 
-export default function Movies({handleSaveMovie, handleDeleteSavedMovie}) {
+export default function Movies({handleSaveMovie}) {
     const [movies, setMovies] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');

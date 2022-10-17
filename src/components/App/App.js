@@ -65,8 +65,11 @@ function handleLogin(data) {
   .then((res) => {
     setIsLoggedIn(true);
     localStorage.setItem('token', res.token);
-    setCurrentUser(data);
-    history.push('/movies')
+    mainApi.getCurrentUser(token)
+      .then((userData) => {
+        setCurrentUser(userData);
+    })
+     history.push('/movies')
   })
   .catch((error) => {
     console.log(error.message)
@@ -138,21 +141,21 @@ function handleDeleteSavedMovie(savedMovieId) {
           <Main />
           <Footer />
         </Route>
-        <Route path="/movies">
+        <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
           <Header />
           <Movies handleSaveMovie ={handleSaveMovie} />
           <Footer />
-        </Route>
-        <Route path="/saved-movies" >
+        </ProtectedRoute>
+        <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
           <Header />
           <SearchForm />
           <SavedMovies handleSaveMovie={handleDeleteSavedMovie} />
           <Footer />
-        </Route>
-        <Route path="/profile">
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
           <Header />
           <Profile onSignOut={onSignOut} onEditProfile={handleEditProfile} />
-        </Route>
+        </ProtectedRoute>
         <Route path="/signin">
           <Login onLogin={handleLogin} />
         </Route>

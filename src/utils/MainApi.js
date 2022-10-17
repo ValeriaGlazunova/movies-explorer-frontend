@@ -12,7 +12,7 @@ class Api {
         }
     }
 
-    getCurrentUser(token) {
+    getCurrentUser (token) {
         return fetch(`${this._mainUrl}/users/me`, {
             method: 'GET',
             headers: {
@@ -87,7 +87,7 @@ class Api {
             headers: {
                 "Content-Type": "application/json",
               },
-            body: JSON.stringify({user}),
+            body: JSON.stringify(user),
         })
         .then(this._checkResponse);
     }

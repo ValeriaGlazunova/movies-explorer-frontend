@@ -17,7 +17,7 @@ export default function Header() {
             <Link to="/signup" className="header__reg-link">
               Регистрация
             </Link>
-            <Link to="/movies" className="header__login-link">
+            <Link to="/signin" className="header__login-link">
               Войти
             </Link>
           </nav>
