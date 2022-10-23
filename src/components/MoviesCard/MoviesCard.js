@@ -40,13 +40,13 @@ export default function MoviesCard({
               saved && "movie-card__fav-icon_type_active"
             }`}
             type="button"
-            onClick={handleSaveMovie}
+            onClick={() => handleSaveMovie(movie)}
           ></button>
         ) : (
           <button
             type="button"
             className="movie-card__fav-icon movie-card__fav-icon_type_delete"
-            onClick={handleSaveMovie}
+            onClick={() => handleSaveMovie(movie._id)}
           ></button>
         )}
       </div>

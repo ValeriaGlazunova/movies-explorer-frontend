@@ -92,19 +92,20 @@ function handleEditProfile(newData) {
 }
 
 //сохранение фильма
-function handleSaveMovie(movie) {
+const handleSaveMovie = async (movie) => {
+  console.log('movie', movie)
   const newSavedMovie = {
     ...movie,
       image: `https://api.nomoreparties.co${movie.image.url}`,
       thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
       movieId: movie.id,
   }
-  delete newSavedMovie.id;
+    delete newSavedMovie.id;
     delete newSavedMovie.created_at;
     delete newSavedMovie.updated_at;
     mainApi.saveMovie(newSavedMovie, token)
     .then((savedMovie) => {
-      setSavedMovieId(savedMovie._id)
+      console.log(savedMovie, 'savedmovie')
       let savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
       if (!savedMovies) {
         savedMovies = [];
@@ -119,7 +120,7 @@ function handleSaveMovie(movie) {
 };
 
 //удаление фильма
-function handleDeleteSavedMovie(savedMovieId) {
+const handleDeleteSavedMovie = async (savedMovieId) => {
   mainApi.deleteMovie(savedMovieId, token)
   .then(() => {
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
@@ -148,7 +149,6 @@ function handleDeleteSavedMovie(savedMovieId) {
         </ProtectedRoute>
         <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
           <Header />
-          <SearchForm />
           <SavedMovies handleSaveMovie={handleDeleteSavedMovie} />
           <Footer />
         </ProtectedRoute>

@@ -34,6 +34,7 @@ React.useEffect(() => {
   .then((res) => {
     console.log('resSavedFilma', res)
     localStorage.setItem('savedMovies', JSON.stringify(res))
+    setLoader(false);
   })
   .catch((err) => {
     console.log(err)
@@ -42,12 +43,10 @@ React.useEffect(() => {
 
   return (
     <section className="saved-movies">
-      <div className="saved-movies__container">
 <SearchForm handleSearch={handleSearch} />
             {loader
         ? <Preloader />
         : <MoviesCardList movies={savedMovies} errorMessage={errorMessage} handleSaveMovie ={handleSaveMovie} />}
-      </div>
     </section>
   );
 }
