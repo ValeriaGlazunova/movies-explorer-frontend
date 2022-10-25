@@ -4,13 +4,12 @@ import { searchFilter } from "../../utils/FilteredArray";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
-import mainApi from "../../utils/MainApi";
 
 
 export default function SavedMovies({handleSaveMovie}) {
   const [loader, setLoader] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
-  const savedArray = JSON.parse(localStorage.getItem('savedMovies') || []);
+  const savedArray = JSON.parse(localStorage.getItem('savedMovies')) || [];
   const [savedMovies, setSavedMovies] = React.useState(savedArray);
 
 const handleSearch = (text, shorts) => {
@@ -27,19 +26,19 @@ const handleSearch = (text, shorts) => {
   setLoader(false);
 }
 
-React.useEffect(() => {
-  setLoader(true);
-  const token = localStorage.getItem('token');
-  mainApi.getMovies(token)
-  .then((res) => {
-    console.log('resSavedFilma', res)
-    localStorage.setItem('savedMovies', JSON.stringify(res))
-    setLoader(false);
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-}, [])
+// React.useEffect(() => {
+//   setLoader(true);
+//   // const token = localStorage.getItem('token');
+//   // mainApi.getMovies(token)
+//   // .then((res) => {
+//   //   console.log('resSavedFilma', res)
+//   //   localStorage.setItem('savedMovies', JSON.stringify(res))
+//   //   setLoader(false);
+//   // })
+//   // .catch((err) => {
+//   //   console.log(err)
+//   // })
+// }, [])
 
   return (
     <section className="saved-movies">
