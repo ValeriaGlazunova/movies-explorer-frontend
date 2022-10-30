@@ -18,7 +18,6 @@ export default function MoviesCard({
     const savedArray = JSON.parse(localStorage.getItem("savedMovies"));
     if (savedArray) {
       savedArray.forEach((savedMovie) => {
-        console.log(savedMovie, 'savedMovie')
         if (savedMovie.movieId === id || savedMovie._id === _id) {
           setSaved(true);
         }

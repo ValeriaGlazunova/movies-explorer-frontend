@@ -4,7 +4,6 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import SearchForm from "../SearchForm/SearchForm";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavesMovies";
 import Profile from "../Profile/Profile";
@@ -67,7 +66,6 @@ function App() {
           setCurrentUser(userData);
         });
         mainApi.getMovies(res.token).then((movies) => {
-          console.log('movies', movies)
           localStorage.setItem("savedMovies", JSON.stringify(movies));
         });
       })
@@ -92,8 +90,7 @@ function App() {
   }
 
   //сохранение фильма
-  const handleSaveMovie = async (movie) => {
-    console.log("movie", movie);
+  const handleSaveMovie = (movie) => {
     const newSavedMovie = {
       ...movie,
       image: `https://api.nomoreparties.co${movie.image.url}`,
@@ -106,12 +103,10 @@ function App() {
     mainApi
       .saveMovie(newSavedMovie, token)
       .then((savedMovie) => {
-        console.log(savedMovie, "savedmovie");
         let savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
         if (!savedMovies) {
           savedMovies = [];
         }
-
         savedMovies.push(savedMovie);
         localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
       })
@@ -121,7 +116,7 @@ function App() {
   };
 
   //удаление фильма
-  const handleDeleteSavedMovie = async (savedMovieId) => {
+  const handleDeleteSavedMovie = (savedMovieId) => {
     mainApi
       .deleteMovie(savedMovieId, token)
       .then(() => {
@@ -151,7 +146,7 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
               <Header />
-              <SavedMovies handleSaveMovie={handleDeleteSavedMovie} />
+              <SavedMovies handleSaveMovie={handleDeleteSavedMovie}/>
               <Footer />
             </ProtectedRoute>
             <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
