@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 export default function MoviesCard({
   movie,
   handleSaveMovie,
+  handleDeleteMovie,
 }) {
   const { nameRU, duration, image, trailerLink, id, _id } = movie;
   const [saved, setSaved] = React.useState(false);
@@ -13,6 +14,21 @@ export default function MoviesCard({
     location.pathname === "/movies"
       ? `https://api.nomoreparties.co${image.url}`
       : image;
+
+  const onMovieSave = () => {
+    handleSaveMovie(movie);
+    toggleSavedButton();
+  };
+
+  const onMovieDelete = () => {
+    handleDeleteMovie(movie._id);
+  };
+
+  const toggleSavedButton = () => {
+    if (!saved) {
+      setSaved(true);
+    }
+  };
 
   React.useEffect(() => {
     const savedArray = JSON.parse(localStorage.getItem("savedMovies"));
@@ -40,13 +56,13 @@ export default function MoviesCard({
               saved && "movie-card__fav-icon_type_active"
             }`}
             type="button"
-            onClick={() => handleSaveMovie(movie)}
+            onClick={onMovieSave}
           ></button>
         ) : (
           <button
             type="button"
             className="movie-card__fav-icon movie-card__fav-icon_type_delete"
-            onClick={() => handleSaveMovie(movie._id)}
+            onClick={onMovieDelete}
           ></button>
         )}
       </div>

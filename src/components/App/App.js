@@ -34,6 +34,9 @@ function App() {
     if (res) {
       history.push("/movies");
       setIsLoggedIn(true);
+      mainApi.getCurrentUser(token).then((user) => {
+        setCurrentUser(user);
+      });
     } else {
       setIsLoggedIn(false);
     }
@@ -72,7 +75,6 @@ function App() {
       .catch((error) => {
         console.log(error.message);
       });
-    
   }
 
   //разлогинимся
@@ -84,50 +86,11 @@ function App() {
 
   //редактирование профиля
   function handleEditProfile(newData) {
-    mainApi.updateUser(newData).then((res) => {
+    mainApi.updateUser(newData, token).then((res) => {
+      console.log("resuser", res);
       setCurrentUser(res);
     });
   }
-
-  //сохранение фильма
-  const handleSaveMovie = (movie) => {
-    const newSavedMovie = {
-      ...movie,
-      image: `https://api.nomoreparties.co${movie.image.url}`,
-      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-      movieId: movie.id,
-    };
-    delete newSavedMovie.id;
-    delete newSavedMovie.created_at;
-    delete newSavedMovie.updated_at;
-    mainApi
-      .saveMovie(newSavedMovie, token)
-      .then((savedMovie) => {
-        let savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
-        if (!savedMovies) {
-          savedMovies = [];
-        }
-        savedMovies.push(savedMovie);
-        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  //удаление фильма
-  const handleDeleteSavedMovie = (savedMovieId) => {
-    mainApi
-      .deleteMovie(savedMovieId, token)
-      .then(() => {
-        const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
-        const newArr = savedMovies.filter((item) => item._id !== savedMovieId);
-        localStorage.setItem("savedMovies", JSON.stringify(newArr));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -141,12 +104,12 @@ function App() {
             </Route>
             <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
               <Header />
-              <Movies handleSaveMovie={handleSaveMovie} />
+              <Movies />
               <Footer />
             </ProtectedRoute>
             <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
               <Header />
-              <SavedMovies handleSaveMovie={handleDeleteSavedMovie}/>
+              <SavedMovies />
               <Footer />
             </ProtectedRoute>
             <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>

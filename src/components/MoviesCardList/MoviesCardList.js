@@ -3,7 +3,12 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
 
-export default function MoviesCardList({ movies, errorMessage, handleSaveMovie }) {
+export default function MoviesCardList({
+  movies,
+  errorMessage,
+  handleSaveMovie,
+  handleDeleteMovie,
+}) {
   const [maxMovies, setMaxMovies] = React.useState(0);
   const [step, setStep] = React.useState(0);
   const location = useLocation();
@@ -33,9 +38,9 @@ export default function MoviesCardList({ movies, errorMessage, handleSaveMovie }
 
   React.useEffect(() => {
     setCards();
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       setCards();
-    })
+    });
   }, []);
 
   return (
@@ -47,21 +52,26 @@ export default function MoviesCardList({ movies, errorMessage, handleSaveMovie }
           {movies.map((movie, index) => {
             if (index < maxMovies) {
               return (
-                <MoviesCard key={movie.id} movie={movie} handleSaveMovie ={handleSaveMovie} />
+                <MoviesCard
+                  key={movie.id}
+                  movie={movie}
+                  handleSaveMovie={handleSaveMovie}
+                  handleDeleteMovie={handleDeleteMovie}
+                />
               );
             }
             return null;
           })}
         </div>
       )}
-      {movies.length > maxMovies && location.pathname !== '/saved-movies' && (
+      {movies.length > maxMovies && location.pathname !== "/saved-movies" && (
         <button
-        className="movies__more-btn"
-        type="button"
-        onClick={showMoreMovies}
-      >
-        Ещё
-      </button>
+          className="movies__more-btn"
+          type="button"
+          onClick={showMoreMovies}
+        >
+          Ещё
+        </button>
       )}
     </section>
   );
