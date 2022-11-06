@@ -12,6 +12,7 @@ export default function Profile({ onEditProfile, onSignOut }) {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [isFormValid, setIsFormValid] = React.useState(true);
+  const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
     setName(currentUser.name);
@@ -28,12 +29,13 @@ export default function Profile({ onEditProfile, onSignOut }) {
     setMessageError({ email: e.target.validationMessage });
   };
 
-  const handleSubmitNewData = (e) => {
+  const handleSubmitNewData = async (e) => {
     if (messageError.name && messageError.email) {
       return;
     }
     e.preventDefault();
-    onEditProfile({ name, email });
+    await onEditProfile({ name, email });
+    setMessage("Профиль успешно изменен");
   };
 
   React.useEffect(() => {
@@ -86,6 +88,7 @@ export default function Profile({ onEditProfile, onSignOut }) {
               )}
             </div>
           </div>
+          <p className="profile__text-message">{message}</p>
         </div>
         <button
           className="profile__submit-btn"
@@ -95,7 +98,7 @@ export default function Profile({ onEditProfile, onSignOut }) {
           Редактирование
         </button>
       </form>
-      <Link to="/" className="profile__logout-btn" onClick={onSignOut}>
+      <Link to="/signin" className="profile__logout-btn" onClick={onSignOut}>
         Выйти из аккаунта
       </Link>
     </section>

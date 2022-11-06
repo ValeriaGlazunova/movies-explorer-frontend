@@ -207,6 +207,10 @@
   }
 }
 
-.search-form__checkbox__input:checked + .search-form__checkbox__pseudo-el {
+/* .search-form__checkbox__input:checked + .search-form__checkbox__pseudo-el {
     background-image: url('../../images/smalltumb.svg');
-  }
+  } */
+
+.search-form__checkbox__pseudo-el_active {
+  background-image: url('../../images/smalltumb.svg');
+}

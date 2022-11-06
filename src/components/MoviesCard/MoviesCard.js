@@ -21,12 +21,19 @@ export default function MoviesCard({
   };
 
   const onMovieDelete = () => {
-    handleDeleteMovie(movie._id);
+    if (location.pathname === "/movies") {
+      handleDeleteMovie(movie.id);
+      toggleSavedButton();
+    } else {
+      handleDeleteMovie(movie._id);
+    }
   };
 
   const toggleSavedButton = () => {
     if (!saved) {
       setSaved(true);
+    } else {
+      setSaved(false);
     }
   };
 
@@ -51,13 +58,19 @@ export default function MoviesCard({
           }м`}</p>
         </div>
         {location.pathname === "/movies" ? (
-          <button
-            className={`movie-card__fav-icon ${
-              saved && "movie-card__fav-icon_type_active"
-            }`}
-            type="button"
-            onClick={onMovieSave}
-          ></button>
+          !saved ? (
+            <button
+              className="movie-card__fav-icon"
+              type="button"
+              onClick={onMovieSave}
+            ></button>
+          ) : (
+            <button
+              className="movie-card__fav-icon movie-card__fav-icon_type_active"
+              type="button"
+              onClick={onMovieDelete}
+            ></button>
+          )
         ) : (
           <button
             type="button"

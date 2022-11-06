@@ -32,13 +32,14 @@ function App() {
   React.useEffect(() => {
     const res = checkToken();
     if (res) {
-      history.push("/movies");
       setIsLoggedIn(true);
       mainApi.getCurrentUser(token).then((user) => {
         setCurrentUser(user);
       });
     } else {
       setIsLoggedIn(false);
+      localStorage.clear();
+      setCurrentUser({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -49,7 +50,8 @@ function App() {
       .signUp(data)
       .then((res) => {
         if (res) {
-          history.push("/signin");
+          handleLogin({ email: data.email, password: data.password });
+          history.push("/movies");
         }
       })
       .catch((error) => {
@@ -82,12 +84,12 @@ function App() {
     localStorage.clear();
     setCurrentUser({});
     setIsLoggedIn(false);
+    history.push("/signin");
   }
 
   //редактирование профиля
   function handleEditProfile(newData) {
     mainApi.updateUser(newData, token).then((res) => {
-      console.log("resuser", res);
       setCurrentUser(res);
     });
   }
@@ -98,7 +100,7 @@ function App() {
         <div className="App">
           <Switch>
             <Route exact path="/">
-              <Header />
+              <Header isLoggedIn={isLoggedIn} />
               <Main />
               <Footer />
             </Route>
@@ -120,12 +122,20 @@ function App() {
               />
             </ProtectedRoute>
             <Route path="/signin">
-              <Login onLogin={handleLogin} />
+              {isLoggedIn ? (
+                history.push("/movies")
+              ) : (
+                <Login onLogin={handleLogin} />
+              )}
             </Route>
             <Route path="/signup">
-              <Register onRegister={handleRegister} />
+              {isLoggedIn ? (
+                history.push("/movies")
+              ) : (
+                <Register onRegister={handleRegister} />
+              )}
             </Route>
-            <Route path="/**">
+            <Route path="**">
               <NotFound />
             </Route>
           </Switch>

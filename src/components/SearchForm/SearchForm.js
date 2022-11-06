@@ -4,11 +4,11 @@ import icon from "../../images/icon.svg";
 import { useLocation } from "react-router-dom";
 
 export default function SearchForm({ handleSearch }) {
-  const [input, setInput] = React.useState('');
+  const [input, setInput] = React.useState("");
   const [check, setCheck] = React.useState(false);
   const [placeholder, setPlaceholder] = React.useState("Фильм");
   const [error, setError] = React.useState(false);
-  const { path } = useLocation();
+  const location = useLocation();
 
   const handleCheck = () => {
     setCheck(!check);
@@ -37,7 +37,7 @@ export default function SearchForm({ handleSearch }) {
   };
 
   React.useEffect(() => {
-    if (path === "/movies") {
+    if (location.pathname === "/movies") {
       const inputValue = localStorage.getItem("text");
       const checkValue = JSON.parse(localStorage.getItem("check"));
 
@@ -49,7 +49,7 @@ export default function SearchForm({ handleSearch }) {
         setCheck(checkValue);
       }
 
-      if (inputValue || checkValue === true) {
+      if (inputValue || (checkValue === true)) {
         handleSearch(inputValue, checkValue);
       }
     }
@@ -77,7 +77,9 @@ export default function SearchForm({ handleSearch }) {
               value={check}
               onChange={handleCheck}
             />
-            <span className="search-form__checkbox__pseudo-el"></span>
+            <span className=
+            {!check ? "search-form__checkbox__pseudo-el" : "search-form__checkbox__pseudo-el search-form__checkbox__pseudo-el_active"}
+            ></span>
             Короткометражки
           </label>
         </form>

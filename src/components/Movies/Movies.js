@@ -71,6 +71,24 @@ export default function Movies() {
       });
   };
 
+  const handleDeleteSavedMovie = (savedMovieId) => {
+    const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
+    const movietodelete = savedMovies.filter(
+      (item) => item.movieId === savedMovieId
+    );
+    mainApi
+      .deleteMovie(movietodelete[0]._id, token)
+      .then(() => {
+        const newArr = savedMovies.filter(
+          (item) => item.movieId !== savedMovieId
+        );
+        localStorage.setItem("savedMovies", JSON.stringify(newArr));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="movies-section">
       <SearchForm handleSearch={handleSearch} />
@@ -81,6 +99,7 @@ export default function Movies() {
           movies={movies}
           errorMessage={errorMessage}
           handleSaveMovie={handleSaveMovie}
+          handleDeleteMovie={handleDeleteSavedMovie}
         />
       )}
     </div>

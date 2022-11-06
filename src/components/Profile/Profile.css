@@ -97,6 +97,14 @@
     transition: opacity 1s;
 }
 
+.profile__text-message {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    width: 410px;
+    color: green;
+}
+
 @media (max-width: 415px) {
     .profile__submit-btn {
         width: 260px;
