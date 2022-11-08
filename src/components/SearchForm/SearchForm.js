@@ -12,7 +12,9 @@ export default function SearchForm({ handleSearch }) {
 
   const handleCheck = () => {
     setCheck(!check);
+    if (location.pathname === '/movies') {
     localStorage.setItem("check", !check);
+    }
     handleSearch(input, !check);
   };
 

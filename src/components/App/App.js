@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -16,9 +16,9 @@ import ProtectedRoute from "../../utils/ProtectedRoute";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
-  const history = useHistory();
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false || true);
   const token = localStorage.getItem("token");
+  const [editMessage, setEditMessage] = React.useState('');
 
   // проверка токена
   const checkToken = () => {
@@ -26,7 +26,7 @@ function App() {
     if (!token) {
       return false;
     }
-    return mainApi.checkToken(token);
+    return mainApi.checkToken(token)
   };
 
   React.useEffect(() => {
@@ -35,10 +35,10 @@ function App() {
       setIsLoggedIn(true);
       mainApi.getCurrentUser(token).then((user) => {
         setCurrentUser(user);
-      });
+      })
     } else {
       setIsLoggedIn(false);
-      localStorage.clear();
+      localStorage.removeItem('token');
       setCurrentUser({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,11 +51,12 @@ function App() {
       .then((res) => {
         if (res) {
           handleLogin({ email: data.email, password: data.password });
-          history.push("/movies");
+          <Redirect to='/movies' />
         }
       })
       .catch((error) => {
         console.log(error.message);
+        setIsLoggedIn(false)
       });
   }
 
@@ -66,7 +67,7 @@ function App() {
       .then((res) => {
         localStorage.setItem("token", res.token);
         setIsLoggedIn(true);
-        history.push("/movies");
+        <Redirect to='/movies' />
         mainApi.getCurrentUser(res.token).then((userData) => {
           setCurrentUser(userData);
         });
@@ -76,6 +77,7 @@ function App() {
       })
       .catch((error) => {
         console.log(error.message);
+          localStorage.removeItem('token')
       });
   }
 
@@ -84,14 +86,19 @@ function App() {
     localStorage.clear();
     setCurrentUser({});
     setIsLoggedIn(false);
-    history.push("/signin");
   }
 
-  //редактирование профиля
-  function handleEditProfile(newData) {
+  const handleEditProfile = (newData) => {
     mainApi.updateUser(newData, token).then((res) => {
       setCurrentUser(res);
-    });
+      setEditMessage('Профиль успешно изменен');
+      setTimeout(() => {
+        setEditMessage('')
+      }, 5000)
+    })
+    .catch((err) => {
+      console.log(err.message);
+    })
   }
 
   return (
@@ -119,18 +126,19 @@ function App() {
               <Profile
                 onSignOut={onSignOut}
                 onEditProfile={handleEditProfile}
+                editMessage={editMessage}
               />
             </ProtectedRoute>
             <Route path="/signin">
               {isLoggedIn ? (
-                history.push("/movies")
+                <Redirect to='/movies' />
               ) : (
                 <Login onLogin={handleLogin} />
               )}
             </Route>
             <Route path="/signup">
               {isLoggedIn ? (
-                history.push("/movies")
+                <Redirect to='/movies' />
               ) : (
                 <Register onRegister={handleRegister} />
               )}

@@ -1,13 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import './NotFound.css';
+import "./NotFound.css";
 
 export default function NotFound() {
-    return(
-        <section className="notfound">
-            <h2 className="notfound__title">404</h2>
-            <p className="notfound__subtitle">Страница не найдена</p>
-            <Link to="/" className="notfound__link">Назад</Link>
-        </section>
-    )
+  const onGoBack = (e) => {
+    e.preventDefault();
+    window.history.go(-1);
+  };
+
+  return (
+    <section className="notfound">
+      <h2 className="notfound__title">404</h2>
+      <p className="notfound__subtitle">Страница не найдена</p>
+      <p className="notfound__link" onClick={onGoBack}>
+        Назад
+      </p>
+    </section>
+  );
 }

@@ -3,7 +3,7 @@ import "./Profile.css";
 import { Link } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-export default function Profile({ onEditProfile, onSignOut }) {
+export default function Profile({ onEditProfile, onSignOut, editMessage }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [messageError, setMessageError] = React.useState({
     name: "",
@@ -12,7 +12,6 @@ export default function Profile({ onEditProfile, onSignOut }) {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [isFormValid, setIsFormValid] = React.useState(true);
-  const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
     setName(currentUser.name);
@@ -29,13 +28,12 @@ export default function Profile({ onEditProfile, onSignOut }) {
     setMessageError({ email: e.target.validationMessage });
   };
 
-  const handleSubmitNewData = async (e) => {
+  const handleSubmitNewData = (e) => {
+    e.preventDefault();
     if (messageError.name && messageError.email) {
       return;
     }
-    e.preventDefault();
-    await onEditProfile({ name, email });
-    setMessage("Профиль успешно изменен");
+    onEditProfile({ name, email });
   };
 
   React.useEffect(() => {
@@ -50,7 +48,7 @@ export default function Profile({ onEditProfile, onSignOut }) {
   return (
     <section className="profile">
       <h2 className="profile__title">{`Привет, ${currentUser.name}!`}</h2>
-      <form className="profile__form" onSubmit={handleSubmitNewData}>
+      <form className="profile__form" onSubmit={handleSubmitNewData} noValidate>
         <div className="profile__input-container">
           <div className="profile__name-container">
             <p className="profie__input-name">Имя</p>
@@ -88,17 +86,17 @@ export default function Profile({ onEditProfile, onSignOut }) {
               )}
             </div>
           </div>
-          <p className="profile__text-message">{message}</p>
-        </div>
+          <p className="profile__text-message">{editMessage}</p>
+        </div>       
         <button
           className="profile__submit-btn"
           disabled={!isFormValid}
           type="submit"
         >
           Редактирование
-        </button>
+        </button> 
       </form>
-      <Link to="/signin" className="profile__logout-btn" onClick={onSignOut}>
+      <Link to="/" className="profile__logout-btn" onClick={onSignOut}>
         Выйти из аккаунта
       </Link>
     </section>
