@@ -12,8 +12,8 @@ export default function SearchForm({ handleSearch }) {
 
   const handleCheck = () => {
     setCheck(!check);
-    if (location.pathname === '/movies') {
-    localStorage.setItem("check", !check);
+    if (location.pathname === "/movies") {
+      localStorage.setItem("check", !check);
     }
     handleSearch(input, !check);
   };
@@ -33,8 +33,9 @@ export default function SearchForm({ handleSearch }) {
 
     setError(false);
     setPlaceholder("Фильм");
-    localStorage.setItem("text", input);
-
+    if (location.pathname === "/movies") {
+      localStorage.setItem("text", input);
+    }
     handleSearch(input, check);
   };
 
@@ -51,7 +52,7 @@ export default function SearchForm({ handleSearch }) {
         setCheck(checkValue);
       }
 
-      if (inputValue || (checkValue === true)) {
+      if (inputValue || checkValue === true) {
         handleSearch(inputValue, checkValue);
       }
     }
@@ -79,8 +80,12 @@ export default function SearchForm({ handleSearch }) {
               value={check}
               onChange={handleCheck}
             />
-            <span className=
-            {!check ? "search-form__checkbox__pseudo-el" : "search-form__checkbox__pseudo-el search-form__checkbox__pseudo-el_active"}
+            <span
+              className={
+                !check
+                  ? "search-form__checkbox__pseudo-el"
+                  : "search-form__checkbox__pseudo-el search-form__checkbox__pseudo-el_active"
+              }
             ></span>
             Короткометражки
           </label>
