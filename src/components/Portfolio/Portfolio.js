@@ -5,7 +5,7 @@ export default function Portfolio() {
   return (
     <section className="portfolio">
       <h4 className="portfolio__title">Портфолио</h4>
-      <ui className="portfolio__link-box">
+      <ul className="portfolio__link-box">
         <li className="portfolio__link">
           <a
             className="portfolio__link-text"
@@ -60,7 +60,7 @@ export default function Portfolio() {
             ↗
           </a>
         </li>
-      </ui>
+      </ul>
     </section>
   );
 }

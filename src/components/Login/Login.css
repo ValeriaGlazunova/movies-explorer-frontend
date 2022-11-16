@@ -126,6 +126,11 @@
     margin: 0 0 16px;
 }
 
+.login__submit-btn:disabled {
+    cursor: default;
+    opacity: .5;
+}
+
 @media (max-width:415px) {
     .login__submit-btn {
         font-size: 12px;
@@ -134,7 +139,7 @@
     }
 }
 
-.login__submit-btn:hover {
+.login__submit-btn:hover:valid {
     opacity: .8;
 }
 

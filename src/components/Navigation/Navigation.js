@@ -1,9 +1,10 @@
 import React from "react";
 import "./Navigation.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navigation() {
   const [showMenu, setShowMenu] = React.useState(false);
+  const location = useLocation();
 
   const handleShowMenu = () => {
     setShowMenu(true);
@@ -33,18 +34,29 @@ export default function Navigation() {
         <li className="navigation__link">
           <Link
             to="/movies"
-            className="navigation__link-item navigation__link_active"
+            className={
+              location.pathname === "/movies"
+                ? "navigation__link-item navigation__link_active"
+                : "navigation__link-item"
+            }
           >
             Фильмы
           </Link>
         </li>
         <li className="navigation__link">
-          <Link to="/saved-movies" className="navigation__link-item">
+          <Link
+            to="/saved-movies"
+            className={
+              location.pathname === "/saved-movies"
+                ? "navigation__link-item navigation__link_active"
+                : "navigation__link-item"
+            }
+          >
             Сохранённые фильмы
           </Link>
         </li>
         <li className="navigation__link navigation__acc-link">
-          <Link to="/" className="navigation__account-link">
+          <Link to="/profile" className="navigation__account-link">
             Аккаунт
           </Link>
         </li>

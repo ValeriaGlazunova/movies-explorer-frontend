@@ -9,9 +9,15 @@ export default function Promo() {
           Учебный проект студента факультета Веб-разработки.
         </h1>
         <nav className="promo__nav-links">
-          <button className="promo__btn promo__about">О проекте</button>
-          <button className="promo__btn promo__techs">Технологии</button>
-          <button className="promo__btn promo__student">Студент</button>
+          <button className="promo__btn promo__about">
+            <a className="promo__link" href="#about-project">О проекте</a>
+          </button>
+          <button className="promo__btn promo__techs">
+            <a className="promo__link" href="#technologies">Технологии</a>
+          </button>
+          <button className="promo__btn promo__student">
+            <a className="promo__link" href="#about-student">Студент</a>
+          </button>
         </nav>
       </section>
     </div>

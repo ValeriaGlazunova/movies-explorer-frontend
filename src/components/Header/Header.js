@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg";
 import { Switch, Route, Link } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 
-export default function Header() {
+export default function Header({ isLoggedIn }) {
   return (
     <header className="header">
       <Link to="/">
@@ -13,14 +13,18 @@ export default function Header() {
       </Link>
       <Switch>
         <Route exact path="/">
-          <nav className="header__nav-box">
-            <Link to="/signup" className="header__reg-link">
-              Регистрация
-            </Link>
-            <Link to="/movies" className="header__login-link">
-              Войти
-            </Link>
-          </nav>
+          {!isLoggedIn ? (
+            <nav className="header__nav-box">
+              <Link to="/signup" className="header__reg-link">
+                Регистрация
+              </Link>
+              <Link to="/signin" className="header__login-link">
+                Войти
+              </Link>
+            </nav>
+          ) : (
+            <Navigation />
+          )}
         </Route>
         <Route path="/movies">
           <Navigation />

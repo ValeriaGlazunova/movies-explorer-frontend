@@ -44,7 +44,7 @@
     transition: opacity 2s;
 }
 
-.movie-card__fav-icon:active {
+.movie-card__fav-icon_type_active {
     background-image: url(../../images/save9.svg);
 }
 
@@ -55,6 +55,7 @@
 .movie-card__frame {
     width: 100%;
     height: 203px;
+    object-fit: cover;
 }
 
 @media (max-width: 1142px) {
