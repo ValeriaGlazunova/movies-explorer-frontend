@@ -9,4 +9,4 @@ http://glazunova.diploma.nomoredomains.xyz
 # ссылка на домен Backend
 https://api.glazunova.diploma.nomoredomains.icu
 
-# В настоящий момент ВМ с бекендом для диплома остановлена
+В настоящий момент ВМ с бекендом для диплома остановлена
